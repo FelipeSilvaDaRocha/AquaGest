@@ -1,0 +1,518 @@
+/*
+**** Estilo arquivo index ****
+*/
+
+body{
+    background-color: #f4f4f4;
+    color: #142147;
+    margin: 0;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size: 1em;
+}
+h2 {
+    margin: 25px;
+}
+
+/* Estilo cabeçalho */
+
+header{
+    background-color: #2E5DA3;
+    color: white;
+    padding: 10px;
+}
+.clear{
+    clear: both;
+}
+#textocabecalho{
+    margin-left: 10px;
+    width: 1000px;
+    float: left;
+}
+#imagemusuario{
+    border: 3px ridge #EFE8EC;
+    margin-left: 3%;
+    width: 100px;
+    height: 100px;
+    float: left;
+}
+#botaoConfiguracao{
+    font-size: 1.7em;
+    margin-right: 3%;
+    margin-top: 2.9%;
+    width: 20px;
+    height: 20px;
+    float: right;
+}
+#botaoConfiguracao a {
+    color: #ffffff;
+}
+#botaoConfiguracao i:hover {
+    color: #e9b310;
+    cursor: pointer;
+}
+#dadosUsuario{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+**** Estilização corpo do site ****
+*/
+
+nav {
+    margin-top: 5px;
+    margin-left: 50px;
+    border-radius: 4px;
+    width: 20%;
+    float: left;
+    position: relative;
+    top: 80px;
+}
+main {
+    margin-top: 5px;
+    margin-right: 50px;
+    width: 69%;
+    float: right;
+}
+.clear {
+    clear: both;
+}
+
+/* Menu Lateral */
+
+a {
+    color: #142147;
+    text-decoration: none;
+}
+nav a:link, nav a:visited {
+    background-color: #2E5DA3;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 4px;
+    margin-bottom: 3px;
+    padding: 15px;
+    display: block;
+}
+nav a:hover{
+    background-color: #467AB5;
+}
+
+/* Eslilo main */
+i {
+    margin-right: 4%;
+    padding-left: 2%;
+}
+.tituloMain {
+    text-align: center;
+    padding: 5px;
+}
+table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+th {
+    background-color: #003366;
+    border-bottom: 1px solid #ddd;
+    color: white;
+    text-align: left;
+    padding-left: 5px;
+}
+tr:nth-child(even) {
+    background-color: #f4f4f4;
+}
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+.nomeRuas tr:hover {
+    background-color: #ddd;
+    border-radius: 3px;
+}
+.nomeRuas a{
+    padding: 10px;
+    padding-left: 5%;
+    display: block;
+}
+.espacoTable {
+    width: 5%;
+}
+.renomear a {
+    background-color: #2E5DA3;
+    color: #ffffff;
+    border-radius: 3px;
+}
+.renomear {
+    text-align: center;
+    font-size: 0.9em;
+    width: 12%;
+}
+.renomear a:hover {
+    background-color: #467AB5;
+    color: #f4f4f4;
+    border-radius: 3px;
+}
+
+/*
+**** Caixas de alerta no final da página ****
+*/
+
+#atrasoPagamento {
+    border: 2px groove #e9b310;
+    border-radius: 4px;
+    width: 47%;
+    height: 120px;
+    margin-top: 25px;
+    float: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#corteAgua {
+    border: 2px groove #F44336;
+    border-radius: 4px;
+    width: 47%;
+    height: 120px;
+    margin-top: 25px;
+    float: right;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#atrasoPagamento table, #corteAgua table {
+   border-collapse: none;
+   box-shadow: none;
+}
+#atrasoPagamento th {
+    background-color: #e9b310;
+    border: 0;
+    padding: 7px;
+    text-align: center;
+}
+#corteAgua th {
+    background-color: #F44336;
+    border: 0;
+    padding: 7px;
+    text-align: center;
+}
+#atrasoPagamento td{
+    padding-left: 8%;
+}
+#corteAgua td {
+    padding-left: 8%;
+}
+
+/*
+**** Rodapé Main****
+*/
+
+footer {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 0.95em;
+    border-top: 1.5px solid #467ab54b;
+    position:static;
+}
+
+/*
+**** Estilo arquivo nova-rua ****
+*/
+
+#cadastroRua input[type=text] {
+    background-color: #ffffff;
+    border: none;
+    width: 97.3%;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    padding: 12px;
+    outline-color: #467AB5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#cadastroRua input[type=submit] {
+    background-color: #2E5DA3;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px;
+    width: 8%;
+    font-size: 0.9em;
+    float: right;
+}
+#cadastroRua input[type=submit]:hover {
+    background-color: #467AB5;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/*
+**** Estilo arquivo membros ****
+*/
+
+#tableMembros td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+#tableMembros a {
+    padding: 3px;
+}
+#tableMembros a:hover {
+    color: #f4f4f4;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+.nomeMembro {
+    text-align: left !important;
+    padding-left: 5px;
+}
+.ver {
+    width: 7%;
+}
+.alterar {
+    width: 9.5%;
+}
+.pagar {
+    width: 8%;
+}
+.ativar {
+    width: 20%;
+}
+.excluir {
+    width: 9%;
+}
+.ver a:hover {
+    background-color: #333131;
+}
+.alterar a:hover {
+    background-color: #2E5DA3;
+}
+.pagar a:hover {
+    background-color: #088395;
+}
+.ativar a:hover {
+    background-color: #00830b;
+}
+.excluir a:hover {
+    background-color: #F44336;
+}
+
+/** Área de filtros **/
+
+#filtros {
+    margin-bottom: 20px;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#filtros h4{
+    margin: 0;
+}
+#selecionarFiltro {
+    float: left;
+}
+#selecionarRua {
+    margin-top: 5px;
+    margin-left: 5px;
+}
+#selecionarRua select {
+    width: 100%;
+    padding: 7px;
+}
+#pesquisar {
+    margin-top: 10px;
+    float:left
+}
+#inserirMembro {
+    background-color: #00830b;
+    border-radius: 4px;
+    width: 7%;
+    margin: 0;
+    padding: 10px;
+    float: right;
+    cursor: pointer;
+}
+#inserirMembro a {
+    color: #ffffff;
+    margin-left: 3px;
+}
+#pesquisar input[type="search"] {
+    width: 198%;
+    padding: 7px;
+    position: relative;
+    top: 53px;
+    left: 3%;
+}
+#pesquisar input[type="submit"] {
+    background-color: #2E5DA3;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 9px;
+    position: relative;
+    top: 22px;
+    left: 548px;
+    cursor: pointer;
+}
+#pesquisar input[type="submit"]:hover {
+    background-color: #467AB5;
+}
+
+
+/*
+**** Estilo arquivo novo-membro ****
+*/
+
+#cadastroNovoMembro form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#cadastroNovoMembro input[type="text"], #cadastroNovoMembro input[type="tel"], #cadastroNovoMembro input[type="date"],#cadastroNovoMembro input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+#cadastroNovoMembro label {
+    margin-top: 10px;
+    display: block;
+}
+#cadastroNovoMembro button {
+    width: 40%;
+    background-color: #2E5DA3;
+    color: white;
+    margin: auto;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    display: block;
+}
+#cadastroNovoMembro button:hover {
+    background-color: #467AB5;
+}
+
+/*
+**** Arquivo pagar ****
+*/
+
+#tabelaPagamentos td, #tabelaPagamentos th {
+    padding: 5px;
+}
+#confirmarPagamento {
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#confirmarPagamento label {
+    margin-left: 27%;
+}
+#confirmarPagamento input[type="text"] {
+    padding: 5px;
+}
+#confirmarPagamento input[type="submit"] {
+    background-color: #2E5DA3;
+    color: #ffffff;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 4px;
+    margin-left: 45%;
+    margin-top: 7px;
+    padding: 9px;
+}
+#confirmarPagamento input[type="submit"]:hover {
+    background-color: #467AB5;
+    cursor: pointer;
+}
+
+/*
+*** Estilo Arquivo Despesas ***
+*/
+
+#controleDespesa h2, #controleDespesa h3, #filtrarDespesas h3, h2 {
+    text-align: center;
+}
+#tabelaDespesas, #tabelaDespesas th {
+    text-align: center;
+    margin-top: 20px;
+}
+#formDespesa input[type="text"], input[type="number"], input[type=""] {
+    width: calc(78%);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+#filtrarDespesas select {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+#formDespesa input[type="submit"] {
+    width: auto;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #003366;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+#formDespesa input[type="submit"]:hover {
+    background-color: #094581;
+}
+#blocoCateg input {
+    width: 40%;
+    padding: 10px;
+    margin-bottom: 10px;
+    float: left;
+}
+#blocoData {
+    margin-left: 18.5%;
+    float: left;
+}
+#blocoData input {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+
+/*
+*** Estilo Arquivo Configuração ***
+*/
+
+.container {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+}
+.container h3 {
+    text-align: center;
+    padding: 5px;
+}
+.section {
+    margin-bottom: 20px;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.section input, .section select {
+    width: 97.5%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #142147;
+}
+.section button {
+    background-color: #2E5DA3;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    margin-top: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.section button:hover {
+    background-color: #467AB5;
+}

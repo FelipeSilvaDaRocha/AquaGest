@@ -1,0 +1,22 @@
+.caixa{
+    background-color: brown;
+    color: white;
+    width: 250px;
+    height: 200px;
+    border: 2px solid black;
+    margin: 5px;
+    float: left;
+}
+
+.clear{
+    clear: both;
+}
+
+#caixa2{
+    border: 3px solid blue;
+    width: 528px;
+    padding: 5px;
+    margin: auto;
+    position: relative;
+    top: 360px;
+}

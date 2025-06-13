@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segunda Associação dos Moradores de Lagoa do Poço</title>
+    <link rel="icon" type="image/x-icon" href="/image/flaticon.ico">
+    <link rel="stylesheet" href="/style2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <!--A imagem deve ser do usuário que acessa-->
+        <div id="imagemusuario">
+            <img src="/image/logo2.png" width="100">
+        </div>
+        <div id="textocabecalho">
+            <h3>Nome</h3>
+            <ul id="dadosUsuario">
+                <li>RA</li>
+                <li>Função</li>
+            </ul>
+        </div>
+        <div id="botaoConfiguracao">
+            <a href="/configuracao.html"><i class="fa-solid fa-gear"></i></a>
+        </div>
+        <div class="clear"></div>
+    </header>
+    <nav>
+        <a href="/nova-rua.html"><i class="fa-solid fa-plus"></i>Nova Rua</a>
+        <a href="/membros.html"><i class="fa-solid fa-user-group"></i>Membros</a>
+        <a href="/balanco.html"><i class="fa-solid fa-chart-line"></i>Balanço</a>
+        <a href="/index.html"><i class="fa-solid fa-circle-arrow-left"></i>Voltar</a>
+    </nav>
+    <main>
+        <div>
+            <h2>Controle de Despesas</h2>
+            <div id="controleDespesa">
+                <form id="formDespesa">
+                    <h3>Adicionar Despesa Mensal</h3>
+                    
+                    <div id="blocoCateg">
+                        <label for="categoria">Categoria:</label><br>
+                        <input list="categoria" name="categoria" id="" required>
+                        <datalist id="categoria">
+                            <option value="Custos Operacionais">
+                            <option value="Energia Elétrica">
+                            <option value="Manutenção de Infraestrutura">
+                            <option value="Salários e Benefícios">
+                            <option value="Materiais e Insumos">
+                            <option value="Transporte e Logística">
+                            <option value="Seguros">
+                            <option value="Impostos e Taxas">
+                            <option value="Locação de Equipamentos e Estruturas">
+                            <option value="Marketing e Comunicação">
+                            <option value="Consultorias e Auditorias">
+                            <option value="TI e Sistemas">
+                            <option value="Gestão Ambiental">
+                            <option value="Dívidas e Financiamentos">
+                            <option value="Pesquisa e Desenvolvimento">
+                        </datalist>
+                    </div>
+                    <div id="blocoData">
+                        <label for="data">Data:</label>
+                        <input type="date" id="data" required>
+                    </div>
+                    <div class="clear"></div>
+
+                    <label for="valor">Valor da Despesa:</label><br>
+                    <input type="number" id="valor" placeholder="Valor em reais" required>
+                    <br>
+                    <label for="descricao">Descrição:</label><br>
+                    <input type="text" id="descricao" required>
+                    <br>
+                    <input type="submit" value="Adicionar Despesa">
+                </form>
+            </div>
+        </div>
+        <div id="filtrarDespesas">
+            <div>
+                <h3>Filtrar Despesas</h3>
+                <label for="trimestre">Selecionar Trimestre:</label>
+                <br>
+                <select id="trimestre">
+                    <option value="1">1º Trimestre (Jan-Mar)</option>
+                    <option value="2">2º Trimestre (Abr-Jun)</option>
+                    <option value="3">3º Trimestre (Jul-Set)</option>
+                    <option value="4">4º Trimestre (Out-Dez)</option>
+                </select>
+            </div>
+            <div>
+                <label for="semestre">Selecionar Semestre:</label>
+                <br>
+                <select id="semestre">
+                    <option value="1">1º Semestre (Jan-Jun)</option>
+                    <option value="2">2º Semestre (Jul-Dez)</option>
+                </select>
+            </div>
+        
+            <table id="tabelaDespesas">
+                <thead>
+                    <tr>
+                        <th>Período</th>
+                        <th>Total de Despesas (R$)</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-despesas">
+                    <tr>
+                        <td>Trimestre Selecionado</td>
+                        <td id="total-trimestre">0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Semestre Selecionado</td>
+                        <td id="total-semestre">0.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <div class="clear"></div>
+    <footer>
+        <p>&copy; 2024 Segunda Associação - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Variáveis para armazenar o total das despesas
+        let despesas = [];
+        const mesesTrimestre = {
+            1: ['Janeiro', 'Fevereiro', 'Março'],
+            2: ['Abril', 'Maio', 'Junho'],
+            3: ['Julho', 'Agosto', 'Setembro'],
+            4: ['Outubro', 'Novembro', 'Dezembro']
+        };
+        const mesesSemestre = {
+            1: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+            2: ['Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+        };
+
+        // Referência ao formulário e à tabela
+        const formDespesa = document.getElementById('form-despesa');
+        const totalTrimestreElement = document.getElementById('total-trimestre');
+        const totalSemestreElement = document.getElementById('total-semestre');
+        const selectTrimestre = document.getElementById('trimestre');
+        const selectSemestre = document.getElementById('semestre');
+
+        // Função para calcular o total por trimestre ou semestre
+        function calcularTotalPorPeriodo(mesesPeriodo) {
+            return despesas
+                .filter(despesa => mesesPeriodo.includes(despesa.mes))
+                .reduce((acc, despesa) => acc + despesa.valor, 0);
+        }
+
+        // Função para atualizar os totais conforme a seleção
+        function atualizarTotais() {
+            const trimestreSelecionado = parseInt(selectTrimestre.value);
+            const semestreSelecionado = parseInt(selectSemestre.value);
+
+            const totalTrimestre = calcularTotalPorPeriodo(mesesTrimestre[trimestreSelecionado]);
+            const totalSemestre = calcularTotalPorPeriodo(mesesSemestre[semestreSelecionado]);
+
+            totalTrimestreElement.textContent = totalTrimestre.toFixed(2);
+            totalSemestreElement.textContent = totalSemestre.toFixed(2);
+        }
+
+        // Função para adicionar uma nova despesa
+        formDespesa.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const mes = document.getElementById('mes').value;
+            const valor = parseFloat(document.getElementById('valor').value);
+
+            // Adiciona a despesa ao array de despesas
+            despesas.push({ mes, valor });
+
+            // Atualiza os totais com base na seleção atual
+            atualizarTotais();
+
+            // Limpar o formulário
+            formDespesa.reset();
+        });
+
+        // Atualizar os totais quando a seleção de trimestre ou semestre mudar
+        selectTrimestre.addEventListener('change', atualizarTotais);
+        selectSemestre.addEventListener('change', atualizarTotais);
+    </script>
+
+</body>
+</html>
