@@ -430,13 +430,19 @@ footer {
 *** Estilo Arquivo Despesas ***
 */
 
-#controleDespesa h2, #controleDespesa h3, #filtrarDespesas h3, h2 {
+.controleDespesa {
+    padding: 2%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 7px;
+}
+
+h2, #consultarDespesas h3, .controleDespesa h3 {
     text-align: center;
 }
-#tabelaDespesas, #tabelaDespesas th {
-    text-align: center;
-    margin-top: 20px;
+h4, p {
+    margin: 0;
 }
+
 #formDespesa input[type="text"], input[type="number"], input[type=""] {
     width: calc(78%);
     padding: 10px;
@@ -447,7 +453,7 @@ footer {
     padding: 10px;
     margin-bottom: 10px;
 }
-#formDespesa input[type="submit"] {
+input[type="submit"] {
     width: auto;
     border-radius: 4px;
     padding: 10px;
@@ -456,7 +462,7 @@ footer {
     border: none;
     cursor: pointer;
 }
-#formDespesa input[type="submit"]:hover {
+input[type="submit"]:hover {
     background-color: #094581;
 }
 #blocoCateg input {
@@ -473,7 +479,22 @@ footer {
     padding: 10px;
     margin-bottom: 10px;
 }
-
+#consultarDespesas {
+    margin-top: 4%;
+    padding: 2%;
+    border-radius: 7px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+select {
+    width: 30%;
+    padding: 10px;
+    margin-bottom: 3%;
+}
+#exibeDespesas {
+    background-color: #fffcfc;
+    border: 1px solid rgba(0, 0, 0, 0.342);
+    border-radius: 7px;
+}
 
 /*
 *** Estilo Arquivo Configuração ***

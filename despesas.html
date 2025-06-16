@@ -33,12 +33,13 @@
         <a href="/index.html"><i class="fa-solid fa-circle-arrow-left"></i>Voltar</a>
     </nav>
     <main>
-        <div>
+        <!--Inserção de despesas-->
+        <section> 
             <h2>Controle de Despesas</h2>
-            <div id="controleDespesa">
+            <div class="controleDespesa">
                 <form id="formDespesa">
-                    <h3>Adicionar Despesa Mensal</h3>
-                    
+                    <h3>Adicionar Despesa</h3>
+                        
                     <div id="blocoCateg">
                         <label for="categoria">Categoria:</label><br>
                         <input list="categoria" name="categoria" id="" required>
@@ -75,49 +76,47 @@
                     <input type="submit" value="Adicionar Despesa">
                 </form>
             </div>
-        </div>
-        <div id="filtrarDespesas">
-            <div>
-                <h3>Filtrar Despesas</h3>
-                <label for="trimestre">Selecionar Trimestre:</label>
+        </section>
+
+        <!--Filtros para consultas-->
+        <section id="consultarDespesas">
+            <h3>Consultar Despesas</h3>
+            <form>
+                <label for="meses">Selecione o mês desejado:</label>
                 <br>
-                <select id="trimestre">
-                    <option value="1">1º Trimestre (Jan-Mar)</option>
-                    <option value="2">2º Trimestre (Abr-Jun)</option>
-                    <option value="3">3º Trimestre (Jul-Set)</option>
-                    <option value="4">4º Trimestre (Out-Dez)</option>
+                <select id="meses" name="meses">
+                    <option value="Janeiro">Janeiro</option>
+                    <option value="Fevereiro">Fevereiro</option>
+                    <option value="Março">Março</option>
+                    <option value="Abril">Abril</option>
+                    <option value="Maio">Maio</option>
+                    <option value="Junho">Junho</option>
+                    <option value="Julho">Julho</option>
+                    <option value="Agosto">Agosto</option>
+                    <option value="Setembro">Setembro</option>
+                    <option value="Outubro">Outubro</option>
+                    <option value="Novembro">Novembro</option>
+                    <option value="Dezembro">Dezembro</option>
                 </select>
-            </div>
-            <div>
-                <label for="semestre">Selecionar Semestre:</label>
-                <br>
-                <select id="semestre">
-                    <option value="1">1º Semestre (Jan-Jun)</option>
-                    <option value="2">2º Semestre (Jul-Dez)</option>
-                </select>
-            </div>
+                <input type="submit" value="Consultar">
+            </form>
         
-            <table id="tabelaDespesas">
-                <thead>
-                    <tr>
-                        <th>Período</th>
-                        <th>Total de Despesas (R$)</th>
-                    </tr>
-                </thead>
-                <tbody id="tabela-despesas">
-                    <tr>
-                        <td>Trimestre Selecionado</td>
-                        <td id="total-trimestre">0.00</td>
-                    </tr>
-                    <tr>
-                        <td>Semestre Selecionado</td>
-                        <td id="total-semestre">0.00</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <!--Exibe as despesas do período selecionado-->
+            <label>Despesas do mês TAL</label>
+            <!--Caixa externa para delimitar o espaço onde as informações serão exibidas-->
+            <div> 
+                <!--Contém as informações de cada despesa/ Usar PHP para iterar as despesas do banco de dados-->
+                <div id="exibeDespesas"> 
+                    <h4>Categoria</h4>
+                    <h4>Data</h4>
+                    <h4>Valor</h4>
+                    <p>Descrição</p>
+                </div>
+            </div>
+        </section>
     </main>
     <div class="clear"></div>
+    
     <footer>
         <p>&copy; 2024 Segunda Associação - Todos os direitos reservados.</p>
     </footer>

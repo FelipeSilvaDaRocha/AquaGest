@@ -105,7 +105,7 @@
     </header>
     <nav>
         <a href="nova-rua.php"><i class="fa-solid fa-plus"></i>Nova Rua</a>
-        <!--<a href="despesas.php"><i class="fa-solid fa-file-invoice-dollar"></i>Despesas</a>-->
+        <a href="despesas.php"><i class="fa-solid fa-file-invoice-dollar"></i>Despesas</a>
         <a href="home.php"><i class="fa-solid fa-circle-arrow-left"></i>Voltar</a>
     </nav>
     <main>
@@ -151,6 +151,9 @@
                 </div>
                 <div class="clear"></div>
             </div>
+        </section>
+        
+        <section>
             <form>
                 <table id="tableMembros">
                     <tr>
