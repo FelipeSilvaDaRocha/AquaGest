@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-$conn = new mysqli("localhost", "root", "", "teste_trabalho_assoc");
+$conn = new mysqli("localhost", "root", "", "banco_dados_associacao");
 
 if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
@@ -18,8 +18,8 @@ function nomeMes($data) {
 }
 
 // Consulta para obter receita total por mês
-$sqlReceita = "SELECT DATE_FORMAT(datap, '%Y-%m') AS mes, SUM(valor_pago) AS receita_total 
-               FROM Pagamentos GROUP BY mes";
+$sqlReceita = "SELECT DATE_FORMAT(data_pag, '%Y-%m') AS mes, SUM(valor) AS receita_total 
+               FROM receita GROUP BY mes";
 $resultReceita = $conn->query($sqlReceita);
 
 $dados = [];
@@ -28,8 +28,8 @@ while ($row = $resultReceita->fetch_assoc()) {
 }
 
 // Consulta para obter despesa total por mês
-$sqlDespesas = "SELECT DATE_FORMAT(datad, '%Y-%m') AS mes, SUM(valor) AS despesa_total 
-                FROM Despesas GROUP BY mes";
+$sqlDespesas = "SELECT DATE_FORMAT(data_registro, '%Y-%m') AS mes, SUM(valor) AS despesa_total 
+                FROM despesas GROUP BY mes";
 $resultDespesas = $conn->query($sqlDespesas);
 
 while ($row = $resultDespesas->fetch_assoc()) {

@@ -1,3 +1,35 @@
+<?php
+    session_start();
+
+    if(!isset($_SESSION['registro_acesso'])){
+        header('Location: index.php?erro=2');
+    }
+
+    require_once('bd.class.php');
+
+    $id_membro_adm = $_SESSION['id_membro_adm'];
+    $registro_acesso = $_SESSION['registro_acesso'];
+    $funcao = $_SESSION['funcao'];
+    
+    $objDb = new db();
+    $link = $objDb->conecta_mysql();
+
+    //Recupera o nome do membro adm
+    $sql = " SELECT nome FROM membros WHERE id_membro = '$id_membro_adm' ";
+
+    if($resultado = mysqli_query($link, $sql)){
+        $dados_membro = mysqli_fetch_array($resultado);
+        
+        $nome_adm = $dados_membro['nome'];
+    }else{
+        echo 'Erro ao tentar localizar membro';
+    }
+    
+    //Recupera os nomes das ruas e exibe na tabela
+    $sqlr = " SELECT nome_rua FROM ruas_cadastradas ORDER BY id_rua ASC ";
+    $resultado2 = mysqli_query($link, $sqlr);
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -12,25 +44,25 @@
     <header>
         <!--A imagem deve ser do usuário que acessa-->
         <div id="imagemusuario">
-            <img src="/image/logo2.png" width="100">
+            <img src="image/logo2.png" width="100">
         </div>
         <div id="textocabecalho">
-            <h3>Nome</h3>
+            <h3><?php echo $nome_adm ?></h3>
             <ul id="dadosUsuario">
-                <li>RA</li>
-                <li>Função</li>
+                <li>RA: <?php echo $registro_acesso?></li>
+                <li><?php echo $funcao?></li>
             </ul>
         </div>
         <div id="botaoConfiguracao">
-            <a href="/configuracao.html"><i class="fa-solid fa-gear"></i></a>
+            <a href="configuracao.php"><i class="fa-solid fa-gear"></i></a>
         </div>
         <div class="clear"></div>
     </header>
     <nav>
-        <a href="/nova-rua.html"><i class="fa-solid fa-plus"></i>Nova Rua</a>
-        <a href="/membros.html"><i class="fa-solid fa-user-group"></i>Membros</a>
-        <a href="/balanco.html"><i class="fa-solid fa-chart-line"></i>Balanço</a>
-        <a href="/index.html"><i class="fa-solid fa-circle-arrow-left"></i>Voltar</a>
+        <a href="nova-rua.php"><i class="fa-solid fa-plus"></i>Nova Rua</a>
+        <a href="membros.php"><i class="fa-solid fa-user-group"></i>Membros</a>
+        <a href="balanco.php"><i class="fa-solid fa-chart-line"></i>Balanço</a>
+        <a href="index.php"><i class="fa-solid fa-circle-arrow-left"></i>Voltar</a>
     </nav>
     <main>
         <!--Inserção de despesas-->

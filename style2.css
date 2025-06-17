@@ -497,6 +497,74 @@ select {
 }
 
 /*
+*** Estilo Arquivo Balanco ***
+*/
+
+.estilo-graficos {
+    padding: 2px;
+    border-radius: 7px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.242);
+}
+.indicador-box {
+      display: flex;
+      align-items: center;
+      background: #f9f9f9;
+      border-radius: 12px;
+      padding: 10px 15px;
+      width: fit-content;
+      margin: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.242);
+      font-family: Arial, sans-serif;
+    }
+
+    .icon-circle {
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+
+    .text-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .text-container .label {
+      font-size: 12px;
+      color: #1421478c;
+      letter-spacing: 1px;
+      text-align: right;
+    }
+
+    .text-container .value {
+      font-size: 16px;
+      font-weight: bold;
+      text-align: right;
+    }
+    .verde {
+        background-color: #2eb133;
+    }
+    .vermelho {
+        background-color: #F44336;
+    }
+    .azul {
+        background-color: #2E5DA3/*#2196f3*/;
+    }
+    .verde-text {
+        color: #2eb133;
+    }
+    .vermelho-text {
+        color: #F44336;
+    }
+    .azul-text {
+        color: #2E5DA3;
+    }
+
+/*
 *** Estilo Arquivo Configuração ***
 */
 
