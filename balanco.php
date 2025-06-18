@@ -141,7 +141,7 @@
                         legend: { position: 'bottom' },
                         hAxis: { title: 'Mês' },
                         vAxis: { title: 'Valor (R$)' },
-                        colors: ['blue', 'red']
+                        colors: ['#0e68f0', '#F44336']
                     };
 
                     var chart = new google.visualization.ColumnChart(document.getElementById('graficoTopo'));
