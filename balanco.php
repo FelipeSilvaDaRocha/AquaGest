@@ -71,12 +71,12 @@
         
         <!--Grágico de colunas receita vs despesas-->
         <div class="estilo-graficos">
-            <div id="graficoTopo" style="width: auto; height: 400px;"></div>
+            <div id="graficoMeses" style="width: auto;"></div>
         </div>
 
         <!--Gráfico de barras (Charts) com valor gasto com cada tipode despesa-->
         <div>
-
+            <div id="graficoCategorias"></div>
         </div>
 
         <!--Tabela mostrando o balanço de cada mês-->
@@ -121,31 +121,42 @@
         <p>&copy; 2024 Segunda Associação - Todos os direitos reservados.</p>
     </footer>
 
-    <script>
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(carregarDados);
+    <script type="text/javascript">
+        google.charts.load('current', { packages:['corechart'] });
+        google.charts.setOnLoadCallback(desenharGraficos);
 
-        function carregarDados() {
+        function desenharGraficos() {
             fetch('dados-grafico.php') // Obtendo os dados do PHP
                 .then(response => response.json())
-                .then(dados => {
-                    var tabela = [['Mês', 'Receita', 'Despesa']];
-                    dados.forEach(item => {
-                        tabela.push([item.mes, item.receita, item.despesa]);
+                .then(data => {
+                    // Gráfico 1: Colunas mês  a mês                    
+                    const tableMensal = new google.visualization.DataTable();
+                    tableMensal.addColumn('string', 'Mês');
+                    tableMensal.addColumn('number', 'Receita');
+                    tableMensal.addColumn('number', 'Despesa');
+                    data.mensal.forEach(mes => {
+                        tableMensal.addRow([`${mes.mes}`, mes.receita, mes.despesa]);
+                    });
+                    const chart1 = new google.visualization.ColumnChart(document.getElementById('graficoMeses'));
+                    chart1.draw(tableMensal, {
+                        title: 'Receita, Despesa',
+                        colors: ['#0e68f0', '#F44336'],
+                        height: 400
                     });
 
-                    var data = google.visualization.arrayToDataTable(tabela);
-
-                    var options = {
-                        title: 'Receita vs Despesas Mensais',
-                        legend: { position: 'bottom' },
-                        hAxis: { title: 'Mês' },
-                        vAxis: { title: 'Valor (R$)' },
-                        colors: ['#0e68f0', '#F44336']
-                    };
-
-                    var chart = new google.visualization.ColumnChart(document.getElementById('graficoTopo'));
-                    chart.draw(data, options);
+                    // Gráfico 2: Pizza por categoria
+                    const tableCat = new google.visualization.DataTable();
+                    tableCat.addColumn('string', 'Categoria');
+                    tableCat.addColumn('number', 'Total Gasto');
+                    data.categorias.forEach(cat => {
+                        tableCat.addRow([cat.categoria, cat.total]);
+                    });
+                    const chart2 = new google.visualization.PieChart(document.getElementById('graficoCategorias'));
+                    chart2.draw(tableCat, {
+                        title: 'Distribuição de Despesas por Categoria',
+                        pieHole: 0.4,
+                        height: 300
+                    });
                 });
         }
 

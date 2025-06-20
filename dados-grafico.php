@@ -18,28 +18,53 @@ function nomeMes($data) {
 }
 
 // Consulta para obter receita total por mês
-$sqlReceita = "SELECT DATE_FORMAT(data_pag, '%Y-%m') AS mes, SUM(valor) AS receita_total 
-               FROM receita GROUP BY mes";
+$sqlReceita = "SELECT DATE_FORMAT(data_pag, '%Y-%m') AS mes, SUM(valor) AS receita_total FROM receita GROUP BY mes";
 $resultReceita = $conn->query($sqlReceita);
 
-$dados = [];
+$mensal = [];
 while ($row = $resultReceita->fetch_assoc()) {
-    $dados[$row['mes']] = ['mes' => nomeMes($row['mes']), 'receita' => (float)$row['receita_total'], 'despesa' => 0];
+    $mensal[$row['mes']] = [
+        'mes' => nomeMes($row['mes']), 
+        'receita' => (float)$row['receita_total'], 
+        'despesa' => 0
+    ];
 }
 
 // Consulta para obter despesa total por mês
-$sqlDespesas = "SELECT DATE_FORMAT(data_registro, '%Y-%m') AS mes, SUM(valor) AS despesa_total 
-                FROM despesas GROUP BY mes";
+$sqlDespesas = "SELECT DATE_FORMAT(data_registro, '%Y-%m') AS mes, SUM(valor) AS despesa_total FROM despesas GROUP BY mes";
 $resultDespesas = $conn->query($sqlDespesas);
 
 while ($row = $resultDespesas->fetch_assoc()) {
-    if (isset($dados[$row['mes']])) {
-        $dados[$row['mes']]['despesa'] = (float)$row['despesa_total'];
+    $mes = $row['mes'];
+    $valor = (float)$row['despesa_total'];
+    if (isset($mensal[$mes])) {
+        $mensal[$mes]['despesa'] = $valor;
     } else {
-        $dados[$row['mes']] = ['mes' => nomeMes($row['mes']), 'receita' => 0, 'despesa' => (float)$row['despesa_total']];
+        $mensal[$mes] = [
+            'mes' => nomeMes($mes),
+            'receita' => 0,
+            'despesa' => $valor
+        ];
     }
 }
 
-echo json_encode(array_values($dados));
+// Consulta 2: Despesas por categoria
+$sqlCategorias = "SELECT categoria, SUM(valor) AS total FROM despesas GROUP BY categoria";
+$resultCategorias = $conn->query($sqlCategorias);
+
+$por_categoria = [];
+while ($row = $resultCategorias->fetch_assoc()) {
+    $por_categoria[] = [
+        'categoria' => $row['categoria'],
+        'total' => (float)$row['total']
+    ];
+}
+
+// Saída combinada
+echo json_encode([
+    'mensal' => array_values($mensal),
+    'categorias' => $por_categoria
+], JSON_UNESCAPED_UNICODE);
+
 $conn->close();
 ?>
