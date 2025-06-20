@@ -63,7 +63,7 @@
     </header>
     <nav>
         <a href="membros.php"><i class="fa-solid fa-user-group"></i>Membros</a>
-        <!--<a href="despesas.php"><i class="fa-solid fa-file-invoice-dollar"></i>Despesas</a>-->
+        <a href="despesas.php"><i class="fa-solid fa-file-invoice-dollar"></i>Despesas</a>
         <a href="home.php"><i class="fa-solid fa-circle-arrow-left"></i>Voltar</a>
         <?php
             if($alerta){
@@ -84,7 +84,7 @@
                 <br>
                 <input type="text" name="novaRua" required>
                 <br>
-                <input type="submit" name="inserirRua">
+                <input type="submit" name="Inserir rua">
                 <?php
                     if($erro_nova_rua == 1){
                         echo '<font style="color: #F44336">Rua já cadastrada</font>';

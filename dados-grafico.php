@@ -1,10 +1,13 @@
 <?php
 header('Content-Type: application/json');
-$conn = new mysqli("localhost", "root", "", "banco_dados_associacao");
 
-if ($conn->connect_error) {
+require_once('bd.class.php');
+$objDb = new db();
+$link = $objDb->conecta_mysql();
+
+/*if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
-}
+}*/
 
 // Função para converter "YYYY-MM" em nome do mês
 function nomeMes($data) {
@@ -14,25 +17,25 @@ function nomeMes($data) {
         '09' => 'Setembro', '10' => 'Outubro', '11' => 'Novembro', '12' => 'Dezembro'
     ];
     $partes = explode('-', $data);
-    return $meses[$partes[1]]; //. ' ' . $partes[0]; // Exemplo: "Janeiro 2025"
+    return $meses[$partes[1]]; //. ' ' . $partes[0]; Exemplo: "Janeiro 2025"
 }
 
 // Consulta para obter receita total por mês
-$sqlReceita = "SELECT DATE_FORMAT(data_pag, '%Y-%m') AS mes, SUM(valor) AS receita_total FROM receita GROUP BY mes";
-$resultReceita = $conn->query($sqlReceita);
+$sqlReceita = "SELECT DATE_FORMAT(data_pag, '%Y-%m') AS mes, SUM(valor) AS receita_mensal FROM receita GROUP BY mes";
+$resultReceita = mysqli_query($link, $sqlReceita);
 
 $mensal = [];
 while ($row = $resultReceita->fetch_assoc()) {
     $mensal[$row['mes']] = [
         'mes' => nomeMes($row['mes']), 
-        'receita' => (float)$row['receita_total'], 
+        'receita' => (float)$row['receita_mensal'], 
         'despesa' => 0
     ];
 }
 
 // Consulta para obter despesa total por mês
 $sqlDespesas = "SELECT DATE_FORMAT(data_registro, '%Y-%m') AS mes, SUM(valor) AS despesa_total FROM despesas GROUP BY mes";
-$resultDespesas = $conn->query($sqlDespesas);
+$resultDespesas = mysqli_query($link, $sqlDespesas);
 
 while ($row = $resultDespesas->fetch_assoc()) {
     $mes = $row['mes'];
@@ -50,7 +53,7 @@ while ($row = $resultDespesas->fetch_assoc()) {
 
 // Consulta 2: Despesas por categoria
 $sqlCategorias = "SELECT categoria, SUM(valor) AS total FROM despesas GROUP BY categoria";
-$resultCategorias = $conn->query($sqlCategorias);
+$resultCategorias = mysqli_query($link, $sqlCategorias);
 
 $por_categoria = [];
 while ($row = $resultCategorias->fetch_assoc()) {

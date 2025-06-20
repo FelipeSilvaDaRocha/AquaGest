@@ -491,9 +491,11 @@ select {
     margin-bottom: 3%;
 }
 #exibeDespesas {
-    background-color: #fffcfc;
-    border: 1px solid rgba(0, 0, 0, 0.342);
+    background-color: #fff;
+    border: 2px inset #00336669;
     border-radius: 7px;
+    padding: 3px 10px;
+    height: 181px;
 }
 
 /*

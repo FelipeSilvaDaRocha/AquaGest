@@ -37,8 +37,6 @@
     
         $resultado2 = mysqli_query($link, $sql2);
     }else{
-        /*Recupera o nome, id e status do membro
-        $sql2 = " SELECT * FROM membros ";*/
 
         //Aplica filtros
         $name_rua = isset($_GET['nome_rua']) ? $_GET['nome_rua'] : 'Todas';
@@ -125,7 +123,7 @@
                             <option>Todos</option>
                         </select>
                         <br>
-                    <!-- class="selecionarRua" -->
+                        <!-- class="selecionarRua" -->
                         <label>Selecione a rua:</label>
                         <br>
                         <select name="nome_rua">

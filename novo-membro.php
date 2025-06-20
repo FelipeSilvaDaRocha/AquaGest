@@ -64,7 +64,7 @@
     </header>
     <nav>
         <a href="nova-rua.php"><i class="fa-solid fa-plus"></i>Nova Rua</a>
-        <!--<a href="despesas.php"><i class="fa-solid fa-file-invoice-dollar"></i>Despesas</a>-->
+        <a href="despesas.php"><i class="fa-solid fa-file-invoice-dollar"></i>Despesas</a>
         <a href="membros.php"><i class="fa-solid fa-circle-arrow-left"></i>Voltar</a>
         <?php
             if($alerta_membro_cadastrado){
@@ -79,7 +79,6 @@
         <h2>Cadastro de Novo Membro</h2>
         <div id="cadastroNovoMembro">
             <form action="registra_membro.php" method="post">
-                <!-- Campo de ID removido porque será gerado automaticamente pelo banco de dados-->
     
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required>

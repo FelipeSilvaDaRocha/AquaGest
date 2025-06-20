@@ -25,9 +25,18 @@
         echo 'Erro ao tentar localizar membro';
     }
     
-    //Recupera os nomes das ruas e exibe na tabela
-    $sqlr = " SELECT nome_rua FROM ruas_cadastradas ORDER BY id_rua ASC ";
-    $resultado2 = mysqli_query($link, $sqlr);
+    // Recupera o valor da receita total do ano
+    $sqlReceita = "SELECT SUM(valor) AS receita_total FROM receita";
+    $resultReceita = mysqli_query($link, $sqlReceita);
+    $totalReceita = $resultReceita->fetch_assoc();
+
+    // Recupera o valor da despesa total do ano
+    $sqlDespesa = "SELECT SUM(valor) AS despesa_total FROM despesas";
+    $resultDespesa = mysqli_query($link, $sqlDespesa);
+    $totalDespesa = $resultDespesa->fetch_assoc();
+
+    // Calcula saldo total anual
+    $saldo = $totalReceita['receita_total'] - $totalDespesa['despesa_total'];
 
 ?>
 
@@ -79,6 +88,8 @@
             <div id="graficoCategorias"></div>
         </div>
 
+        <!--Gráfico com lista e valor das despesa de cada mês-->
+
         <!--Tabela mostrando o balanço de cada mês-->
         <div>
             <table>
@@ -86,14 +97,16 @@
             </table>
         </div>
 
-        <!--Indicadores de receita, despesa e Lucro totais-->
+        <!--Indicadores de receita, despesa e lucro totais-->
         <div class="indicador-box">
             <div class="icon-circle verde">
                 <i class="fa-solid fa-arrow-trend-up"></i>
             </div>
             <div class="text-container">
                 <span class="label">RECEITAS</span>
-                <span class="value verde-text">R$ 5.505,50</span>
+                <?php
+                    echo "<span class='value verde-text'>R$ ".$totalReceita['receita_total']."</span>";
+                ?>
             </div>
         </div>
         <div class="indicador-box">
@@ -102,7 +115,9 @@
             </div>
             <div class="text-container">
                 <span class="label">DESPESAS</span>
-                <span class="value vermelho-text">R$ 5.505,50</span>
+                <?php
+                    echo "<span class='value vermelho-text'>R$ ".$totalDespesa['despesa_total']."</span>";
+                ?>
             </div>
         </div>
         <div class="indicador-box">
@@ -111,14 +126,16 @@
             </div>
             <div class="text-container">
                 <span class="label">SALDO ATUAL</span>
-                <span class="value azul-text">R$ 5.505,50</span>
+                <?php
+                    echo "<span class='value azul-text'>R$ ".$saldo."</span>"
+                ?>
             </div>
         </div>
         
     </main>
     <div class="clear"></div>
     <footer>
-        <p>&copy; 2024 Segunda Associação - Todos os direitos reservados.</p>
+        <p>&copy; 2025 Segunda Associação - Todos os direitos reservados.</p>
     </footer>
 
     <script type="text/javascript">
@@ -127,7 +144,7 @@
 
         function desenharGraficos() {
             fetch('dados-grafico.php') // Obtendo os dados do PHP
-                .then(response => response.json())
+                .then(res => res.json())
                 .then(data => {
                     // Gráfico 1: Colunas mês  a mês                    
                     const tableMensal = new google.visualization.DataTable();
@@ -139,7 +156,7 @@
                     });
                     const chart1 = new google.visualization.ColumnChart(document.getElementById('graficoMeses'));
                     chart1.draw(tableMensal, {
-                        title: 'Receita, Despesa',
+                        title: 'Receita vs Despesa',
                         colors: ['#0e68f0', '#F44336'],
                         height: 400
                     });

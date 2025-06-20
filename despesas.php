@@ -4,13 +4,14 @@
     if(!isset($_SESSION['registro_acesso'])){
         header('Location: index.php?erro=2');
     }
-
-    require_once('bd.class.php');
-
+    
+    $alerta_despesa = isset($_GET['warning']) ? $_GET['warning'] : 0;
     $id_membro_adm = $_SESSION['id_membro_adm'];
     $registro_acesso = $_SESSION['registro_acesso'];
     $funcao = $_SESSION['funcao'];
     
+    require_once('bd.class.php');
+
     $objDb = new db();
     $link = $objDb->conecta_mysql();
 
@@ -24,10 +25,10 @@
     }else{
         echo 'Erro ao tentar localizar membro';
     }
+
+    // Recupera as consultas das despesas feita no banco de dados
     
-    //Recupera os nomes das ruas e exibe na tabela
-    $sqlr = " SELECT nome_rua FROM ruas_cadastradas ORDER BY id_rua ASC ";
-    $resultado2 = mysqli_query($link, $sqlr);
+
 ?>
 
 <!DOCTYPE html>
@@ -63,18 +64,28 @@
         <a href="membros.php"><i class="fa-solid fa-user-group"></i>Membros</a>
         <a href="balanco.php"><i class="fa-solid fa-chart-line"></i>Balanço</a>
         <a href="index.php"><i class="fa-solid fa-circle-arrow-left"></i>Voltar</a>
+
+        <?php
+            if($alerta_despesa){
+                echo '<div style="border: 2px solid #003366; border-radius: 4px; margin-top: 30px">
+                        <i class="fa-solid fa-file-invoice-dollar" style="color: #003366; width: 40px; margin-top: 10px; margin-left: 46%"></i>
+                        <h3 style="color: #003366; margin: auto; padding: 10px; text-align: center">Despesa inserida com sucesso!</h3>
+                      </div>';
+            }
+        ?>
+
     </nav>
     <main>
-        <!--Inserção de despesas-->
+        <!--Inserir despesas-->
         <section> 
             <h2>Controle de Despesas</h2>
             <div class="controleDespesa">
-                <form id="formDespesa">
+                <form id="formDespesa" method="post" action="processa-despesas.php">
+
                     <h3>Adicionar Despesa</h3>
-                        
                     <div id="blocoCateg">
                         <label for="categoria">Categoria:</label><br>
-                        <input list="categoria" name="categoria" id="" required>
+                        <input list="categoria" name="categoria" required>
                         <datalist id="categoria">
                             <option value="Custos Operacionais">
                             <option value="Energia Elétrica">
@@ -95,54 +106,62 @@
                     </div>
                     <div id="blocoData">
                         <label for="data">Data:</label>
-                        <input type="date" id="data" required>
+                        <input type="date" name="data" required>
                     </div>
                     <div class="clear"></div>
 
                     <label for="valor">Valor da Despesa:</label><br>
-                    <input type="number" id="valor" placeholder="Valor em reais" required>
+                    <input type="number" name="valor" placeholder="Valor em reais" required>
                     <br>
                     <label for="descricao">Descrição:</label><br>
-                    <input type="text" id="descricao" required>
+                    <input type="text" name="descricao" required>
                     <br>
                     <input type="submit" value="Adicionar Despesa">
                 </form>
             </div>
         </section>
 
-        <!--Filtros para consultas-->
+        <!--Consultar despesas-->
         <section id="consultarDespesas">
             <h3>Consultar Despesas</h3>
-            <form>
+            <form method="get" action="processa-despesas.php">
                 <label for="meses">Selecione o mês desejado:</label>
                 <br>
                 <select id="meses" name="meses">
-                    <option value="Janeiro">Janeiro</option>
-                    <option value="Fevereiro">Fevereiro</option>
-                    <option value="Março">Março</option>
-                    <option value="Abril">Abril</option>
-                    <option value="Maio">Maio</option>
-                    <option value="Junho">Junho</option>
-                    <option value="Julho">Julho</option>
-                    <option value="Agosto">Agosto</option>
-                    <option value="Setembro">Setembro</option>
-                    <option value="Outubro">Outubro</option>
-                    <option value="Novembro">Novembro</option>
-                    <option value="Dezembro">Dezembro</option>
+                    <option value="01">Janeiro</option>
+                    <option value="02">Fevereiro</option>
+                    <option value="03">Março</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Maio</option>
+                    <option value="06">Junho</option>
+                    <option value="07">Julho</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
                 </select>
                 <input type="submit" value="Consultar">
             </form>
         
-        <!--Exibe as despesas do período selecionado-->
-            <label>Despesas do mês TAL</label>
+            <!--Exibe as despesas do período selecionado-->
             <!--Caixa externa para delimitar o espaço onde as informações serão exibidas-->
-            <div> 
+            <div id="exibeDespesas"> 
                 <!--Contém as informações de cada despesa/ Usar PHP para iterar as despesas do banco de dados-->
-                <div id="exibeDespesas"> 
-                    <h4>Categoria</h4>
-                    <h4>Data</h4>
-                    <h4>Valor</h4>
-                    <p>Descrição</p>
+                <div>
+                    <?php
+                        if (isset($_SESSION['despesas'])) {
+                            foreach ($_SESSION['despesas'] as $despesa) {
+                                echo "Categoria: " . $despesa['categoria'] . "<br>";
+                                echo "Data: " . $despesa['data_registro'] . "<br>";
+                                echo "Valor: R$" . $despesa['valor'] . "<br>";
+                                echo "Descrição: " . $despesa['descricao'] . "<hr>";
+                            }
+                            unset($_SESSION['despesas']); // Limpa os dados após o uso
+                        } else {
+                            echo "Nenhuma despesa encontrada.";
+                        }
+                    ?> 
                 </div>
             </div>
         </section>
