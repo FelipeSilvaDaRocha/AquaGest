@@ -6,7 +6,7 @@ body{
     background-color: #f4f4f4;
     color: #142147;
     margin: 0;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 1em;
 }
 h2 {
@@ -29,7 +29,7 @@ header{
     float: left;
 }
 #imagemusuario{
-    border: 3px ridge #EFE8EC;
+    border: 1px solid #EFE8EC;
     margin-left: 3%;
     width: 100px;
     height: 100px;
@@ -111,7 +111,7 @@ table {
     width: 100%;
     margin: 0;
     border-collapse: collapse;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.242);
 }
 th {
     background-color: #003366;
@@ -165,7 +165,7 @@ tr:nth-child(odd) {
     height: 120px;
     margin-top: 25px;
     float: left;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 #corteAgua {
     border: 2px groove #F44336;
@@ -174,7 +174,7 @@ tr:nth-child(odd) {
     height: 120px;
     margin-top: 25px;
     float: right;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 #atrasoPagamento table, #corteAgua table {
    border-collapse: none;
@@ -223,7 +223,7 @@ footer {
     margin-bottom: 10px;
     padding: 12px;
     outline-color: #467AB5;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.242);
 }
 #cadastroRua input[type=submit] {
     background-color: #2E5DA3;
@@ -298,7 +298,7 @@ footer {
 #filtros {
     margin-bottom: 20px;
     padding: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.242);
 }
 #filtros h4{
     margin: 0;
@@ -364,7 +364,7 @@ footer {
     border-radius: 5px;
     width: 80%;
     margin: auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.242);
 }
 #cadastroNovoMembro input[type="text"], #cadastroNovoMembro input[type="tel"], #cadastroNovoMembro input[type="date"],#cadastroNovoMembro input[type="number"] {
     width: calc(100% - 20px);
@@ -400,16 +400,31 @@ footer {
 #tabelaPagamentos td, #tabelaPagamentos th {
     padding: 5px;
 }
+#valor-pag-box {
+    margin-bottom: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+#mes-pag-box {
+    border: 1px groove #2e5da362;
+    border-radius: 7px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
 #confirmarPagamento {
-    background-color: #f4f4f4;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f4f4f4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.242);
 }
-#confirmarPagamento label {
-    margin-left: 27%;
-}
-#confirmarPagamento input[type="text"] {
-    padding: 5px;
+#confirmarPagamento input[type="number"] {
+    width: 20%;
+    border: 1px solid rgba(0, 0, 0, 0.555);
+    border-radius: 7px;
 }
 #confirmarPagamento input[type="submit"] {
     background-color: #2E5DA3;
@@ -417,13 +432,19 @@ footer {
     font-size: 0.9em;
     border: none;
     border-radius: 4px;
-    margin-left: 45%;
-    margin-top: 7px;
+    margin: 10px;
     padding: 9px;
+    height: 2.7em;
 }
 #confirmarPagamento input[type="submit"]:hover {
     background-color: #467AB5;
     cursor: pointer;
+}
+#confirmarPagamento select {
+    border-radius: 7px;
+}
+#input-apurar-mes {
+    margin-left: 35%;
 }
 
 /*
@@ -502,10 +523,22 @@ select {
 *** Estilo Arquivo Balanco ***
 */
 
-.estilo-graficos {
+.grafico-container {
     padding: 2px;
+    margin-bottom: 30px;
     border-radius: 7px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.242);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.242);
+    background-color: #fff; /* opcional, mas ajuda a destacar */
+}
+#graficoMeses svg, #graficoCategorias svg {
+    border-radius: 7px;
+}
+#incicadores-container {
+    margin-bottom: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .indicador-box {
       display: flex;
@@ -517,6 +550,7 @@ select {
       margin: 5px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.242);
       font-family: Arial, sans-serif;
+      margin-right: 30px ;
     }
 
     .icon-circle {
@@ -534,7 +568,6 @@ select {
       display: flex;
       flex-direction: column;
     }
-
     .text-container .label {
       font-size: 12px;
       color: #1421478c;
@@ -584,7 +617,7 @@ select {
     border-radius: 4px;
     padding: 10px;
     background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.242);
 }
 .section input, .section select {
     width: 97.5%;

@@ -47,7 +47,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Segunda Associação dos Moradores de Lagoa do Poço</title>
     <link rel="icon" type="image/x-icon" href="image/flaticon.ico">
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style2.css?v=<?= filemtime('style2.css') ?>">
+    <!-- <link rel="stylesheet" href="style2.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
@@ -55,7 +56,7 @@
     <header>
         <!--A imagem deve ser do usuário que acessa-->
         <div id="imagemusuario">
-            <img src="image/logo2.png" width="100">
+            <img src="image/logo.png" width="100">
         </div>
         <div id="textocabecalho">
             <h3><?php echo $nome_adm ?></h3>
@@ -76,17 +77,58 @@
         <a href="home.php"><i class="fa-solid fa-circle-arrow-left"></i>Voltar</a>
     </nav>
     <main>
-        <h2>Balanço Financeiro</h2>   
+        <h2>Balanço Financeiro</h2>
+        
+        <!--Indicadores de receita, despesa e lucro totais-->
+        <div id="incicadores-container">
+            <div class="indicador-box">
+                <div class="icon-circle verde">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                </div>
+                <div class="text-container">
+                    <span class="label">RECEITAS</span>
+                    <?php
+                        echo "<span class='value verde-text'>R$ ".$totalReceita['receita_total']."</span>";
+                    ?>
+                </div>
+            </div>
+            <div class="indicador-box">
+                <div class="icon-circle vermelho">
+                    <i class="fa-solid fa-arrow-trend-down"></i>
+                </div>
+                <div class="text-container">
+                    <span class="label">DESPESAS</span>
+                    <?php
+                        echo "<span class='value vermelho-text'>R$ ".$totalDespesa['despesa_total']."</span>";
+                    ?>
+                </div>
+            </div>
+            <div class="indicador-box">
+                <div class="icon-circle azul">
+                    <i class="fa-solid fa-landmark"></i>
+                </div>
+                <div class="text-container">
+                    <span class="label">SALDO ATUAL</span>
+                    <?php
+                        echo "<span class='value azul-text'>R$ ".$saldo."</span>"
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
         
         <!--Grágico de colunas receita vs despesas-->
-        <div class="estilo-graficos">
-            <div id="graficoMeses" style="width: auto;"></div>
+        <div class="grafico-container">
+            <div id="graficoMeses" style="width: 100%; height: 400px;"></div>
         </div>
 
+        
+
         <!--Gráfico de barras (Charts) com valor gasto com cada tipode despesa-->
-        <div>
-            <div id="graficoCategorias"></div>
+        <div class="grafico-container">
+            <div id="graficoCategorias" style="width: 100%; height: 300px;"></div>
         </div>
+
 
         <!--Gráfico com lista e valor das despesa de cada mês-->
 
@@ -96,41 +138,6 @@
 
             </table>
         </div>
-
-        <!--Indicadores de receita, despesa e lucro totais-->
-        <div class="indicador-box">
-            <div class="icon-circle verde">
-                <i class="fa-solid fa-arrow-trend-up"></i>
-            </div>
-            <div class="text-container">
-                <span class="label">RECEITAS</span>
-                <?php
-                    echo "<span class='value verde-text'>R$ ".$totalReceita['receita_total']."</span>";
-                ?>
-            </div>
-        </div>
-        <div class="indicador-box">
-            <div class="icon-circle vermelho">
-                <i class="fa-solid fa-arrow-trend-down"></i>
-            </div>
-            <div class="text-container">
-                <span class="label">DESPESAS</span>
-                <?php
-                    echo "<span class='value vermelho-text'>R$ ".$totalDespesa['despesa_total']."</span>";
-                ?>
-            </div>
-        </div>
-        <div class="indicador-box">
-            <div class="icon-circle azul">
-                <i class="fa-solid fa-landmark"></i>
-            </div>
-            <div class="text-container">
-                <span class="label">SALDO ATUAL</span>
-                <?php
-                    echo "<span class='value azul-text'>R$ ".$saldo."</span>"
-                ?>
-            </div>
-        </div>
         
     </main>
     <div class="clear"></div>
@@ -139,29 +146,38 @@
     </footer>
 
     <script type="text/javascript">
-        google.charts.load('current', { packages:['corechart'] });
+        google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(desenharGraficos);
 
         function desenharGraficos() {
-            fetch('dados-grafico.php') // Obtendo os dados do PHP
-                .then(res => res.json())
+            fetch('dados-grafico.php')
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error(`Erro ao carregar dados: ${res.status}`);
+                    }
+                    return res.json();
+                })
                 .then(data => {
-                    // Gráfico 1: Colunas mês  a mês                    
+                    console.log('Dados recebidos:', data);
+
+                    // Gráfico de colunas - Receita vs Despesa
                     const tableMensal = new google.visualization.DataTable();
                     tableMensal.addColumn('string', 'Mês');
                     tableMensal.addColumn('number', 'Receita');
                     tableMensal.addColumn('number', 'Despesa');
                     data.mensal.forEach(mes => {
-                        tableMensal.addRow([`${mes.mes}`, mes.receita, mes.despesa]);
+                        tableMensal.addRow([mes.mes, mes.receita, mes.despesa]);
                     });
                     const chart1 = new google.visualization.ColumnChart(document.getElementById('graficoMeses'));
                     chart1.draw(tableMensal, {
                         title: 'Receita vs Despesa',
                         colors: ['#0e68f0', '#F44336'],
-                        height: 400
+                        height: 400,
+                        legend: { position: 'top' },
+                        //chartArea: { width: '80%' }
                     });
 
-                    // Gráfico 2: Pizza por categoria
+                    // Gráfico de pizza - Despesas por categoria
                     const tableCat = new google.visualization.DataTable();
                     tableCat.addColumn('string', 'Categoria');
                     tableCat.addColumn('number', 'Total Gasto');
@@ -174,11 +190,14 @@
                         pieHole: 0.4,
                         height: 300
                     });
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar gráficos:', error);
                 });
         }
 
-        // Atualizar o gráfico a cada 10 segundos automaticamente
-        setInterval(carregarDados, 10000);
+        // Atualiza os gráficos automaticamente a cada 10 segundos
+        setInterval(desenharGraficos, 10000);
     </script>
 </body>
 </html>

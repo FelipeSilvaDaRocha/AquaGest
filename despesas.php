@@ -24,11 +24,7 @@
         $nome_adm = $dados_membro['nome'];
     }else{
         echo 'Erro ao tentar localizar membro';
-    }
-
-    // Recupera as consultas das despesas feita no banco de dados
-    
-
+    }  
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +34,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Segunda Associação dos Moradores de Lagoa do Poço</title>
     <link rel="icon" type="image/x-icon" href="image/flaticon.ico">
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style2.css?v=<?= filemtime('style2.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
