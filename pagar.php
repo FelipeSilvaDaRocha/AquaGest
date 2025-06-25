@@ -89,13 +89,13 @@
         <a href="balanco.php"><i class="fa-solid fa-chart-line"></i>Balanço</a>
         <a href="membros.php"><i class="fa-solid fa-circle-arrow-left"></i>Voltar</a>
         <?php
-            if($alerta_mes_alterado === 1){
+            if($alerta_mes_alterado == 1){
                 echo '<div style="border: 2px solid #003366; border-radius: 4px; margin-top: 30px">
                         <i class="fa-solid fa-user-check" style="color: #003366; width: 40px; margin-top: 10px; margin-left: 46%"></i>
                         <h3 style="color: #003366; margin: auto; padding: 10px; text-align: center">Mês liquidado com sucesso!</h3>
                       </div>';
             }
-            if($alerta_mes_alterado === 2){
+            if($alerta_mes_alterado == 2){
                 echo '<div style="border: 2px solid #003366; border-radius: 4px; margin-top: 30px">
                         <i class="fa-solid fa-user-check" style="color: #003366; width: 40px; margin-top: 10px; margin-left: 46%"></i>
                         <h3 style="color: #003366; margin: auto; padding: 10px; text-align: center">Pagamento efetuado com sucesso!</h3>
@@ -244,7 +244,7 @@
                             }
                         
                         ?>
-                        <td>30/11/<?php echo date("Y"); ?> </td>
+                        <td>30/11/<?php echo date("Y"); ?></td>
                     </tr>
                     <tr>
                         <td>Dezembro</td>
@@ -256,7 +256,7 @@
                             }
                         
                         ?>
-                        <td>30/12/2024</td>
+                        <td>30/12/<?php echo date("Y"); ?></td>
                     </tr>
                 </table>
                 <div id="confirmarPagamento">

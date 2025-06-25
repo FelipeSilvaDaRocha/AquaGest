@@ -65,6 +65,7 @@
     <nav>
         <a href="nova-rua.php"><i class="fa-solid fa-plus"></i>Nova Rua</a>
         <a href="despesas.php"><i class="fa-solid fa-file-invoice-dollar"></i>Despesas</a>
+        <a href="balanco.php"><i class="fa-solid fa-chart-line"></i>Balanço</a>
         <a href="membros.php"><i class="fa-solid fa-circle-arrow-left"></i>Voltar</a>
         <?php
             if($alerta_membro_cadastrado){

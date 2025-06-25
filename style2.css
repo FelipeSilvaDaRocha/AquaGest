@@ -18,21 +18,22 @@ h2 {
 header{
     background-color: #2E5DA3;
     color: white;
-    padding: 10px;
+    /*padding: 10px;*/
 }
 .clear{
     clear: both;
 }
 #textocabecalho{
-    margin-left: 10px;
+    margin-left: 20px;
+    margin-top: 7px;
     width: 1000px;
     float: left;
 }
 #imagemusuario{
-    border: 1px solid #EFE8EC;
-    margin-left: 3%;
-    width: 100px;
-    height: 100px;
+    /*border: 1px solid #EFE8EC;*/
+    margin-left: 5%;
+    margin-top: 5px;
+    margin-bottom: 5px;
     float: left;
 }
 #botaoConfiguracao{

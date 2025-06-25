@@ -46,7 +46,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Segunda Associação dos Moradores de Lagoa do Poço</title>
-    <link rel="icon" type="image/x-icon" href="image/flaticon.ico">
+    <link rel="icon" type="image/x-icon" href="image/flaticonnovo.png">
     <link rel="stylesheet" href="style2.css?v=<?= filemtime('style2.css') ?>">
     <!-- <link rel="stylesheet" href="style2.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -56,7 +56,7 @@
     <header>
         <!--A imagem deve ser do usuário que acessa-->
         <div id="imagemusuario">
-            <img src="image/logo.png" width="100">
+            <img src="image/logowhitecs.png" width="120">
         </div>
         <div id="textocabecalho">
             <h3><?php echo $nome_adm ?></h3>
