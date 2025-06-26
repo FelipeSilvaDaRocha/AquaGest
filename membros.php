@@ -85,19 +85,20 @@
 </head>
 <body>
     <header>
-        <!--A imagem deve ser do usuário que acessa-->
+        <!--A imagem deve ser a logo da Associação-->
         <div id="imagemusuario">
-            <img src="image/logo2.png" width="100">
+            <a href="home.php" title="II Associação Comunitária"><img src="image/logowhitecs.png" width="120"></a>
         </div>
         <div id="textocabecalho">
-            <h3><?php echo $nome_adm ?></h3>
+            <h1>II Associação Comunitária</h1>
             <ul id="dadosUsuario">
+                <li>Usuário: <?php echo $nome_adm ?></li>
+                <li>Função: <?php echo $funcao?></li>
                 <li>RA: <?php echo $registro_acesso?></li>
-                <li><?php echo $funcao?></li>
             </ul>
         </div>
         <div id="botaoConfiguracao">
-            <a href="configuracao.php"><i class="fa-solid fa-gear"></i></a>
+            <a href="configuracao.php" title="Configurações"><i class="fa-solid fa-gear"></i></a>
         </div>
         <div class="clear"></div>
     </header>

@@ -39,19 +39,20 @@
 </head>
 <body>
     <header>
-        <!--A imagem deve ser do usuário que acessa-->
+        <!--A imagem deve ser a logo da Associação-->
         <div id="imagemusuario">
-            <img src="image/logo2.png" width="100">
+            <a href="home.php" title="II Associação Comunitária"><img src="image/logowhitecs.png" width="120"></a>
         </div>
         <div id="textocabecalho">
-            <h3><?php echo $nome_adm ?></h3>
+            <h1>II Associação Comunitária</h1>
             <ul id="dadosUsuario">
+                <li>Usuário: <?php echo $nome_adm ?></li>
+                <li>Função: <?php echo $funcao?></li>
                 <li>RA: <?php echo $registro_acesso?></li>
-                <li><?php echo $funcao?></li>
             </ul>
         </div>
         <div id="botaoConfiguracao">
-            <a href="configuracao.php"><i class="fa-solid fa-gear"></i></a>
+            <a href="configuracao.php" title="Configurações"><i class="fa-solid fa-gear"></i></a>
         </div>
         <div class="clear"></div>
     </header>
@@ -140,7 +141,6 @@
                 <input type="submit" value="Consultar">
             </form>
         
-            <!--Exibe as despesas do período selecionado-->
             <!--Caixa externa para delimitar o espaço onde as informações serão exibidas-->
             <div id="exibeDespesas"> 
                 <!--Contém as informações de cada despesa/ Usar PHP para iterar as despesas do banco de dados-->
@@ -149,7 +149,7 @@
                         if (isset($_SESSION['despesas'])) {
                             foreach ($_SESSION['despesas'] as $despesa) {
                                 echo "Categoria: " . $despesa['categoria'] . "<br>";
-                                echo "Data: " . $despesa['data_registro'] . "<br>";
+                                echo "Data: " . date("d-m-Y",strtotime($despesa['data_registro'])) . "<br>";
                                 echo "Valor: R$" . $despesa['valor'] . "<br>";
                                 echo "Descrição: " . $despesa['descricao'] . "<hr>";
                             }
@@ -165,69 +165,7 @@
     <div class="clear"></div>
     
     <footer>
-        <p>&copy; 2024 Segunda Associação - Todos os direitos reservados.</p>
+        <p>&copy; <?php echo date("Y");?> Segunda Associação - Todos os direitos reservados.</p>
     </footer>
-
-    <script>
-        // Variáveis para armazenar o total das despesas
-        let despesas = [];
-        const mesesTrimestre = {
-            1: ['Janeiro', 'Fevereiro', 'Março'],
-            2: ['Abril', 'Maio', 'Junho'],
-            3: ['Julho', 'Agosto', 'Setembro'],
-            4: ['Outubro', 'Novembro', 'Dezembro']
-        };
-        const mesesSemestre = {
-            1: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
-            2: ['Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
-        };
-
-        // Referência ao formulário e à tabela
-        const formDespesa = document.getElementById('form-despesa');
-        const totalTrimestreElement = document.getElementById('total-trimestre');
-        const totalSemestreElement = document.getElementById('total-semestre');
-        const selectTrimestre = document.getElementById('trimestre');
-        const selectSemestre = document.getElementById('semestre');
-
-        // Função para calcular o total por trimestre ou semestre
-        function calcularTotalPorPeriodo(mesesPeriodo) {
-            return despesas
-                .filter(despesa => mesesPeriodo.includes(despesa.mes))
-                .reduce((acc, despesa) => acc + despesa.valor, 0);
-        }
-
-        // Função para atualizar os totais conforme a seleção
-        function atualizarTotais() {
-            const trimestreSelecionado = parseInt(selectTrimestre.value);
-            const semestreSelecionado = parseInt(selectSemestre.value);
-
-            const totalTrimestre = calcularTotalPorPeriodo(mesesTrimestre[trimestreSelecionado]);
-            const totalSemestre = calcularTotalPorPeriodo(mesesSemestre[semestreSelecionado]);
-
-            totalTrimestreElement.textContent = totalTrimestre.toFixed(2);
-            totalSemestreElement.textContent = totalSemestre.toFixed(2);
-        }
-
-        // Função para adicionar uma nova despesa
-        formDespesa.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const mes = document.getElementById('mes').value;
-            const valor = parseFloat(document.getElementById('valor').value);
-
-            // Adiciona a despesa ao array de despesas
-            despesas.push({ mes, valor });
-
-            // Atualiza os totais com base na seleção atual
-            atualizarTotais();
-
-            // Limpar o formulário
-            formDespesa.reset();
-        });
-
-        // Atualizar os totais quando a seleção de trimestre ou semestre mudar
-        selectTrimestre.addEventListener('change', atualizarTotais);
-        selectSemestre.addEventListener('change', atualizarTotais);
-    </script>
-
 </body>
 </html>

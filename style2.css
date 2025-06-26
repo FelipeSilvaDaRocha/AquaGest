@@ -6,19 +6,19 @@ body{
     background-color: #f4f4f4;
     color: #142147;
     margin: 0;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 1em;
+    font-family: 'Arial', Helvetica, sans-serif;
+    font-size: 0.95em;
 }
-h2 {
+/*h2 {
     margin: 25px;
 }
 
-/* Estilo cabeçalho */
+ Estilo cabeçalho */
 
 header{
     background-color: #2E5DA3;
     color: white;
-    /*padding: 10px;*/
+    padding-bottom: 15px;
 }
 .clear{
     clear: both;
@@ -29,17 +29,21 @@ header{
     width: 1000px;
     float: left;
 }
+#textocabecalho h1 {
+    margin-top: 10px;
+    margin-bottom: 7px;
+    margin-left: 140px;
+}
 #imagemusuario{
-    /*border: 1px solid #EFE8EC;*/
-    margin-left: 5%;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    float: left;
+    position: absolute;
+    left: 50px;
+    top: 17px;
+    z-index: 1;
 }
 #botaoConfiguracao{
     font-size: 1.7em;
     margin-right: 3%;
-    margin-top: 2.9%;
+    margin-top: 3.5%;
     width: 20px;
     height: 20px;
     float: right;
@@ -52,9 +56,14 @@ header{
     cursor: pointer;
 }
 #dadosUsuario{
-    list-style-type: none;
+    list-style-type:none;
     margin: 0;
     padding: 0;
+}
+#dadosUsuario li {
+    margin-bottom: 3px;
+    margin-left: 165px;
+    font-size: 0.95em;
 }
 
 /*
@@ -198,6 +207,10 @@ tr:nth-child(odd) {
 }
 #corteAgua td {
     padding-left: 8%;
+}
+.table-wrapper {
+    max-height: 130px;
+    overflow-y: auto;
 }
 
 /*
@@ -516,8 +529,9 @@ select {
     background-color: #fff;
     border: 2px inset #00336669;
     border-radius: 7px;
-    padding: 3px 10px;
+    padding: 10px;
     height: 181px;
+    overflow: auto;
 }
 
 /*

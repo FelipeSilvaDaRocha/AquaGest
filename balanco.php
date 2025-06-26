@@ -54,19 +54,20 @@
 </head>
 <body>
     <header>
-        <!--A imagem deve ser do usuário que acessa-->
+        <!--A imagem deve ser a logo da Associação-->
         <div id="imagemusuario">
-            <img src="image/logowhitecs.png" width="120">
+            <a href="home.php" title="II Associação Comunitária"><img src="image/logowhitecs.png" width="120"></a>
         </div>
         <div id="textocabecalho">
-            <h3><?php echo $nome_adm ?></h3>
+            <h1>II Associação Comunitária</h1>
             <ul id="dadosUsuario">
+                <li>Usuário: <?php echo $nome_adm ?></li>
+                <li>Função: <?php echo $funcao?></li>
                 <li>RA: <?php echo $registro_acesso?></li>
-                <li><?php echo $funcao?></li>
             </ul>
         </div>
         <div id="botaoConfiguracao">
-            <a href="configuracao.php"><i class="fa-solid fa-gear"></i></a>
+            <a href="configuracao.php" title="Configurações"><i class="fa-solid fa-gear"></i></a>
         </div>
         <div class="clear"></div>
     </header>
@@ -122,27 +123,15 @@
             <div id="graficoMeses" style="width: 100%; height: 400px;"></div>
         </div>
 
-        
-
         <!--Gráfico de barras (Charts) com valor gasto com cada tipode despesa-->
         <div class="grafico-container">
             <div id="graficoCategorias" style="width: 100%; height: 300px;"></div>
-        </div>
-
-
-        <!--Gráfico com lista e valor das despesa de cada mês-->
-
-        <!--Tabela mostrando o balanço de cada mês-->
-        <div>
-            <table>
-
-            </table>
         </div>
         
     </main>
     <div class="clear"></div>
     <footer>
-        <p>&copy; 2025 Segunda Associação - Todos os direitos reservados.</p>
+        <p>&copy; <?php echo date("Y");?> Segunda Associação - Todos os direitos reservados.</p>
     </footer>
 
     <script type="text/javascript">
