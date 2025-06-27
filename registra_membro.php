@@ -71,8 +71,61 @@
     
     //executar a query
     if(mysqli_query($link, $sql)){
+
+        // Busca o id do último membro
+        $sql = " SELECT MAX(id_membro) FROM membros ";
+        if($resultado_id = mysqli_query($link, $sql)){
+            $valor_id = mysqli_fetch_array($resultado_id);
+
+            $id = $valor_id['MAX(id_membro)'];
+            $mesAtual = (int)date('m'); // número do mês atual (1 a 12)
+
+            // Lista dos meses (use sempre a ordem correta)
+            $meses = [
+                'Janeiro', 'Fevereiro', 'Marco', 'Abril', 'Maio', 'Junho',
+                'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+            ];
+
+            // Inicia os campos e valores
+            $campos = ['id_membro'];
+            $valores = ["'{$id}'"];
+
+            for ($i = 0; $i < $mesAtual - 1; $i++) {
+                $campo = $meses[$i];
+                $campos[] = $campo;
+
+                if ($i < $mesAtual - 1) {
+                    $valores[] = "'isento'";
+                } else {
+                    // omitido pois o valor padrão já é 'A pagar'
+                }
+            }
+
+            // Monta a query
+            $sql = "INSERT INTO pagamentos (" . implode(', ', $campos) . ") 
+                    VALUES (" . implode(', ', $valores) . ")";
+
+            if (mysqli_query($link, $sql)) {
+
+            }else{
+                echo "Erro ao inserir dados no banco de dados!";
+            }
+
+        }else{
+            echo "Erro ao consultar banco de dados!";
+        }
+
+        // Retorna alerta de inserção bem-sucedida
         header('Location: novo-membro.php?warning=1');
     }else{
         echo "Erro ao registrar o usuário!";
     }
+
+/*
+    echo '<h3>Debug de Inserção</h3>';
+    echo '<strong>Campos:</strong> ' . implode(' | ', $campos) . '<br>';
+    echo '<strong>Valores:</strong> ' . implode(' | ', $valores) . '<br>';
+
+    echo 'Query final: <br>' . $sql;
+*/
 ?>

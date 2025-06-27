@@ -80,7 +80,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Segunda Associação dos Moradores de Lagoa do Poço</title>
     <link rel="icon" type="image/x-icon" href="image/flaticon.ico">
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style2.css?v=<?= filemtime('style2.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -116,19 +116,9 @@
             <div id="filtros">
                 <div id="selecionarFiltro">
                     <h4>Filtros:</h4>
-                    <form id="selecionarTipoRua">
-                        <label>Tipo de membro:</label>
-                        <br>
-                        <select name="tipo_membro">
-                            <option selected>Ativos</option>
-                            <option>Inativos</option>
-                            <option>Todos</option>
-                        </select>
-                        <br>
-                        <!-- class="selecionarRua" -->
+                    <form id="formFiltros">
                         <label>Selecione a rua:</label>
-                        <br>
-                        <select name="nome_rua">
+                        <select id="nomeRua" name="nome_rua">
                             <?php
                                 echo '<option selected>Todas</option>';
                                 while($dados_rua = mysqli_fetch_assoc($resultado_ruas)){
@@ -136,6 +126,15 @@
                                 }
                             ?>
                         </select>
+                        <br>
+                        <label>Tipo de membro:</label>
+                        <select name="tipo_membro">
+                            <option selected>Ativos</option>
+                            <option>Inativos</option>
+                            <option>Todos</option>
+                        </select>
+                        <!-- class="selecionarRua" -->
+                        
                         <input type="submit" value="Filtrar" style="background-color: #2E5DA3; color: #fff; border-color: #ccc; border-radius: 4px; padding: 2px 4px">
                     </form>
                 </div>
@@ -143,8 +142,8 @@
                     <a href="novo-membro.php"><i class="fa-solid fa-plus"></i>Novo</a>
                 </div>
                 <!--<div class="clear"></div>-->
-                <div >
-                    <form id="pesquisar">
+                <div id="pesquisar">
+                    <form>
                         <input type="search" id="pesquisa" name="search" placeholder="Digite aqui para fazer uma busca">
                         <input type="submit" onclick="searchData()" value="Pesquisar" >
                     </form>
@@ -155,7 +154,7 @@
         
         <section>
             <form>
-                <table id="tableMembros">
+                <table id="tableMembros" class="tabelasPrincipais">
                     <tr>
                         <!--<th></th>-->
                         <th>Id</th>

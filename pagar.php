@@ -30,6 +30,17 @@
         echo 'Erro ao tentar localizar membro';
     }
 
+    // Consulta nome, apelido e rua dos membros
+    $sqlmembro = " SELECT membros.nome, membros.apelido, ruas_cadastradas.nome_rua FROM membros 
+    LEFT JOIN ruas_cadastradas ON ruas_cadastradas.id_rua = membros.id_rua 
+    WHERE membros.id_membro = $id_membro ";
+
+    if($resultado_membro = mysqli_query($link, $sqlmembro)){
+        $info_membro = mysqli_fetch_array($resultado_membro);
+    }else{
+        echo 'Erro ao tentar Consulta nome, apelido e rua dos membros.';
+    }
+
     //Listar dados da tabela
     $sql = " SELECT * FROM pagamentos WHERE id_membro = '$id_membro' ";
     if($resultadoPag = mysqli_query($link, $sql)){
@@ -62,7 +73,6 @@
     <title>Segunda Associação dos Moradores de Lagoa do Poço</title>
     <link rel="icon" type="image/x-icon" href="image/flaticon.ico">
     <link rel="stylesheet" href="style2.css?v=<?= filemtime('style2.css') ?>">
-    <!-- <link rel="stylesheet" href="style2.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -108,8 +118,15 @@
     <main>
         <section >
             <div>
+                <div class="clear"></div>
+                
                 <h2>Apuração de Pagamentos</h2>
-                <table id="tabelaPagamentos">
+                <div id="dados-membro">
+                    <p>Membro: <?= $info_membro['nome'] ?></p>
+                    <p>Apelido: <?= $info_membro['apelido'] ?></p>
+                    <p>Rua: <?= $info_membro['nome_rua'] ?></p>
+                </div>
+                <table id="tabelaPagamentos" class="tabelasPrincipais">
                     <tr>
                         <th>Período de Apuração</th>
                         <th>Situação</th>

@@ -25,22 +25,29 @@
         echo 'Erro ao tentar localizar membro';
     }
     
-    //Recupera os nomes das ruas e exibe na tabela
-    $sqlr = " SELECT nome_rua FROM ruas_cadastradas ORDER BY id_rua ASC ";
-    $resultado2 = mysqli_query($link, $sqlr);
-    
-    //Acessa lista de débitos dos membros
-    $sql = " SELECT id_pag, nome, num_debitos FROM pagamentos LEFT JOIN membros ON pagamentos.id_membro = membros.id_membro ";
-    $resultado_deb = mysqli_query($link, $sql);
+    // Consulta membros com seus débitos e nome da rua
+    $sql = "
+        SELECT 
+            pagamentos.id_pag,
+            membros.nome,
+            pagamentos.num_debitos,
+            ruas_cadastradas.nome_rua
+        FROM pagamentos
+        LEFT JOIN membros ON pagamentos.id_membro = membros.id_membro
+        LEFT JOIN ruas_cadastradas ON membros.id_rua = ruas_cadastradas.id_rua
+    ";
+
+    $resultado_debitos = mysqli_query($link, $sql);
 
     $atraso = [];
     $corte = [];
 
-    if ($resultado_deb) {
-        while ($linha = mysqli_fetch_assoc($resultado_deb)) {
+    if ($resultado_debitos) {
+        while ($linha = mysqli_fetch_assoc($resultado_debitos)) {
             $info = [
                 'id_pag' => $linha['id_pag'],
-                'nome' => $linha['nome']
+                'nome'   => $linha['nome'],
+                'rua'    => $linha['nome_rua']
             ];
             $debitos = (int)$linha['num_debitos'];
 
@@ -51,8 +58,12 @@
             }
         }
     } else {
-        echo 'Erro ao consultar o banco de dados.';
+        echo 'Erro ao consultar dados de membros e ruas.';
     }
+
+    //Recupera os nomes das ruas e exibe na tabela
+    $sqlr = " SELECT nome_rua FROM ruas_cadastradas ORDER BY id_rua ASC ";
+    $resultado2 = mysqli_query($link, $sqlr);
 
 ?>
 
@@ -97,14 +108,12 @@
             <div class="tituloMain">
                 <h2>Ruas Atendidas</h2>
             </div>
-            <table class="nomeRuas">
-                <?php
-                    while($dados_rua = mysqli_fetch_assoc($resultado2)){
-                        echo '<tr>';
-                        echo '<td style="padding: 10px 15px">'.$dados_rua['nome_rua'].'</td>';
-                        echo '</tr>';
-                    }
-                ?>
+            <table class="nomeRuas tabelasPrincipais">
+                <?php while ($nome_ruas = mysqli_fetch_assoc($resultado2)): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($nome_ruas['nome_rua']) ?></td>
+                    </tr>
+                <?php endwhile; ?>
             </table>
         </section>
         <section>
@@ -114,13 +123,17 @@
                 <h3>Atraso</h3>
                 <table id="tabelaAtraso" class="display tabelaAlerta">
                     <thead>
-                        <tr><th>ID Pagamento</th><th>Nome</th></tr>
+                        <tr><th>Nome</th><th>Rua</th></tr>
                     </thead>
                     <tbody>
                         <?php foreach ($atraso as $membro): ?>
                         <tr>
-                            <td><?= htmlspecialchars($membro['id_pag']) ?></td>
-                            <td><?= htmlspecialchars($membro['nome']) ?></td>
+                            <td>
+                                <a href="pagar.php?id=<?= urlencode($membro['id_pag']) ?>">
+                                    <?= htmlspecialchars($membro['nome']) ?>
+                                </a>
+                            </td>
+                            <td><?= htmlspecialchars($membro['rua']) ?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -132,13 +145,17 @@
                 <h3>Corte</h3>
                 <table id="tabelaCorte" class="display tabelaAlerta">
                     <thead>
-                        <tr><th>ID Pagamento</th><th>Nome</th></tr>
+                        <tr><th>Nome</th><th>Rua</th></tr>
                     </thead>
                     <tbody>
                         <?php foreach ($corte as $membro): ?>
                         <tr>
-                            <td><?= htmlspecialchars($membro['id_pag']) ?></td>
-                            <td><?= htmlspecialchars($membro['nome']) ?></td>
+                            <td>
+                                <a href="pagar.php?id=<?= urlencode($membro['id_pag']) ?>">
+                                    <?= htmlspecialchars($membro['nome']) ?>
+                                </a>
+                            </td>
+                            <td><?= htmlspecialchars($membro['rua']) ?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
