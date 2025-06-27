@@ -117,12 +117,6 @@ i {
     text-align: center;
     padding: 5px;
 }
-table {
-    width: 100%;
-    margin: 0;
-    border-collapse: collapse;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.242);
-}
 th {
     background-color: #003366;
     border-bottom: 1px solid #ddd;
@@ -135,6 +129,12 @@ tr:nth-child(even) {
 }
 tr:nth-child(odd) {
     background-color: #ffffff;
+}
+.nomeRuas {
+    width: 100%;
+    margin-bottom: 40px;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.242);
 }
 .nomeRuas tr:hover {
     background-color: #ddd;
@@ -168,49 +168,82 @@ tr:nth-child(odd) {
 **** Caixas de alerta no final da página ****
 */
 
-#atrasoPagamento {
+#areaAtraso {
     border: 2px groove #e9b310;
-    border-radius: 4px;
-    width: 47%;
-    height: 120px;
-    margin-top: 25px;
+    border-radius: 7px;
+    width: 49%;
+    max-height: 200px;
+    margin-right: 1%;
+    overflow-y: auto;
     float: left;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-#corteAgua {
+#areaAtraso h3 {
+    background-color: #e9b310;
+    color: white;
+    margin: 0;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+}
+#areaCorte {
     border: 2px groove #F44336;
-    border-radius: 4px;
-    width: 47%;
-    height: 120px;
-    margin-top: 25px;
-    float: right;
+    border-radius: 7px;
+    width: 49%;
+    max-height: 200px;
+    overflow-y: auto;
+    float: left;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-#atrasoPagamento table, #corteAgua table {
-   border-collapse: none;
-   box-shadow: none;
-}
-#atrasoPagamento th {
-    background-color: #e9b310;
-    border: 0;
-    padding: 7px;
-    text-align: center;
-}
-#corteAgua th {
+#areaCorte h3 {
     background-color: #F44336;
-    border: 0;
-    padding: 7px;
-    text-align: center;
+    color: white;
+    margin: 0;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
 }
-#atrasoPagamento td{
-    padding-left: 8%;
+.tabelaAlerta {
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
-#corteAgua td {
-    padding-left: 8%;
+#tabelaAtraso_wrapper thead th {
+    background-color: #e9b310;
 }
-.table-wrapper {
-    max-height: 130px;
-    overflow-y: auto;
+#tabelaCorte_wrapper thead th {
+    background-color: #F44336;
+}
+
+#tabelaCorte_wrapper .dataTables_filter {
+    font-size: 15px;
+    font-weight: bold;
+    padding-left: 5px;
+    color: white;
+    background-color: #F44336;    
+}
+#tabelaAtraso_wrapper .dataTables_filter {
+    font-size: 15px;
+    font-weight: bold;
+    padding-left: 5px;
+    color: white;
+    background-color: #e9b310;    
+}
+.dataTables_filter input {
+    width: 365px;
+    margin: 5px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.dataTables_filter input:focus {
+    outline: none;
+    border-color: #59606b;
+    
 }
 
 /*

@@ -30,24 +30,28 @@
     $resultado2 = mysqli_query($link, $sqlr);
     
     //Acessa lista de débitos dos membros
-    $sql = " SELECT nome, num_debitos FROM pagamentos LEFT JOIN membros ON pagamentos.id_membro = membros.id_membro ";
+    $sql = " SELECT id_pag, nome, num_debitos FROM pagamentos LEFT JOIN membros ON pagamentos.id_membro = membros.id_membro ";
+    $resultado_deb = mysqli_query($link, $sql);
 
-    if($resultado_deb = mysqli_query($link, $sql)){
-        
-        $iterador = 0;
-        while($dados_membro_deb = mysqli_fetch_assoc($resultado_deb)){
-                                
-            if($dados_membro_deb['num_debitos'] == 2){
-                $atraso[$iterador] = $dados_membro_deb['nome'];
+    $atraso = [];
+    $corte = [];
+
+    if ($resultado_deb) {
+        while ($linha = mysqli_fetch_assoc($resultado_deb)) {
+            $info = [
+                'id_pag' => $linha['id_pag'],
+                'nome' => $linha['nome']
+            ];
+            $debitos = (int)$linha['num_debitos'];
+
+            if ($debitos === 2) {
+                $atraso[] = $info;
+            } elseif ($debitos > 2) {
+                $corte[] = $info;
             }
-                                
-            if($dados_membro_deb['num_debitos'] > 2){
-                $corte[$iterador] = $dados_membro_deb['nome'];
-            }
-            $iterador++;
         }
-    }else{
-        echo 'Erro ao tentar informações de nome e débitos de membros';
+    } else {
+        echo 'Erro ao consultar o banco de dados.';
     }
 
 ?>
@@ -59,7 +63,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Segunda Associação dos Moradores de Lagoa do Poço</title>
     <link rel="icon" type="image/x-icon" href="image/flaticon.ico">
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style2.css?v=<?= filemtime('style2.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -103,43 +107,77 @@
                 ?>
             </table>
         </section>
-        <div>
-            <!--Membros com atrazo no pagamento-->
-            <div id="atrasoPagamento" class="table-wrapper">
-                <table>
-                    <tr>
-                        <th>Pagamento em Atraso</th>
-                    </tr>
-                    <?php
-                        foreach($atraso as $nome_atr){
-                            echo '<tr>';
-                            echo '<td>'.$nome_atr.'</td>';
-                            echo '</tr>';
-                        }
-                    ?>
+        <section>
+            <h2>Membros com Débitos</h2>
+            <!--Tabela listando os membros em atraso-->
+            <div id="areaAtraso">
+                <h3>Atraso</h3>
+                <table id="tabelaAtraso" class="display tabelaAlerta">
+                    <thead>
+                        <tr><th>ID Pagamento</th><th>Nome</th></tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($atraso as $membro): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($membro['id_pag']) ?></td>
+                            <td><?= htmlspecialchars($membro['nome']) ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
                 </table>
             </div>
-
-            <!--Membros que devem ter sua água cortada-->
-            <div id="corteAgua" class="table-wrapper">
-                <table>
-                    <tr>
-                        <th>Corte de Ligação</th>
-                    </tr>
-                    <?php
-                        foreach($corte as $nome_cort){
-                            echo '<tr>';
-                            echo '<td>'.$nome_cort.'</td>';
-                            echo '</tr>';
-                        }
-                    ?>
+            
+            <!--Tabela com membros na lista de corte-->
+            <div id="areaCorte">
+                <h3>Corte</h3>
+                <table id="tabelaCorte" class="display tabelaAlerta">
+                    <thead>
+                        <tr><th>ID Pagamento</th><th>Nome</th></tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($corte as $membro): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($membro['id_pag']) ?></td>
+                            <td><?= htmlspecialchars($membro['nome']) ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
                 </table>
             </div>
-        </div>
+        </section>
     </main>
     <div class="clear"></div>
     <footer>
-        <p>&copy; 2024 Segunda Associação - Todos os direitos reservados.</p>
+        <p>&copy; <?php echo date("Y");?> Segunda Associação - Todos os direitos reservados.</p>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tabelaAtraso').DataTable({
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
+                },
+                paging: false,        // Remove a paginação
+                info: false,          // Remove a contagem de registros ("Mostrando de 1 até...")
+                lengthChange: false,  // Remove o seletor "Mostrar X registros"
+                ordering: true,       // Mantém a ordenação de colunas, se quiser
+                searching: true       // Mantém a busca                
+            });
+            $('#tabelaCorte').DataTable({
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
+                },
+                paging: false,        
+                info: false,          
+                lengthChange: false,  
+                ordering: true,       
+                searching: true       
+
+            });
+        });
+    </script>
+
 </body>
 </html>

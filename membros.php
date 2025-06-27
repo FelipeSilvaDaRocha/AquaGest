@@ -190,8 +190,6 @@
                                     </a>
                                 </td>";
                             echo "<td class='pagar'><a href='pagar.php?id=$id'><i class='fa-solid fa-dollar-sign'></i>Pagar</a></td>";
-                            //echo '<td class="ativar"><a href=""><i class="fa-solid fa-check"></i>'.$botao_status.'</a></td>';
-                            //echo '<td class="excluir"><a href=""><i class="fa-solid fa-xmark"></i>Excluir</a></td>';
                             echo '</tr>';
                         }
                     ?>
